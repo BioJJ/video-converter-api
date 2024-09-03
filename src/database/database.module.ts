@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { User } from 'src/users/entities/user.entity'
+import { Video } from '../videos/entities/video.entity'
 
 @Module({
 	imports: [
@@ -17,7 +18,7 @@ import { User } from 'src/users/entities/user.entity'
 				database: configService.get('DB_DB'),
 				synchronize: true,
 				logging: true,
-				entities: [User]
+				entities: [User, Video]
 			})
 		})
 	]
