@@ -8,6 +8,9 @@ import * as Joi from '@hapi/joi'
 import { AuthModule } from './auth/auth.module'
 import { APP_GUARD } from '@nestjs/core'
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard'
+import { VideosModule } from './videos/videos.module'
+import { ServeStaticModule } from '@nestjs/serve-static'
+import { join } from 'path'
 
 @Module({
 	imports: [
@@ -21,9 +24,14 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard'
 				PORT: Joi.number()
 			})
 		}),
+		ServeStaticModule.forRoot({
+			rootPath: join(__dirname, '..', 'uploads'),
+			serveRoot: '/uploads/'
+		}),
 		DatabaseModule,
 		UsersModule,
-		AuthModule
+		AuthModule,
+		VideosModule
 	],
 	controllers: [AppController],
 	providers: [
